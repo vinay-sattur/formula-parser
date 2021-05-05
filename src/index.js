@@ -18,6 +18,7 @@ import {
   rowIndexToLabel,
   rowLabelToIndex,
 } from './helper/cell';
+import * as formulajs from '@handsontable/formulajs';
 
 export {
   SUPPORTED_FORMULAS,
@@ -37,4 +38,5 @@ export {
   columnLabelToIndex,
   rowIndexToLabel,
   rowLabelToIndex,
+  formulajs
 };

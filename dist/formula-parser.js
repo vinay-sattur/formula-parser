@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1656,11 +1656,11 @@ exports.TRUNC = function(number, digits) {
 
 var mathTrig = __webpack_require__(4);
 var text = __webpack_require__(6);
-var jStat = __webpack_require__(10);
+var jStat = __webpack_require__(11);
 var utils = __webpack_require__(1);
 var evalExpression = __webpack_require__(7);
 var error = __webpack_require__(0);
-var misc = __webpack_require__(11);
+var misc = __webpack_require__(12);
 
 var SQRT2PI = 2.5066282746310002;
 
@@ -4706,6 +4706,33 @@ function serial(date) {
 
 /***/ }),
 /* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var categories = [
+  __webpack_require__(25),
+  __webpack_require__(27),
+  __webpack_require__(13),
+  __webpack_require__(28),
+  __webpack_require__(4),
+  __webpack_require__(6),
+  __webpack_require__(9),
+  __webpack_require__(29),
+  __webpack_require__(8),
+  __webpack_require__(30),
+  __webpack_require__(5),
+  __webpack_require__(12)
+];
+
+for (var c in categories) {
+  var category = categories[c];
+  for (var f in category) {
+    exports[f] = exports[f] || category[f];
+  }
+}
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (window, factory) {
@@ -9700,7 +9727,7 @@ jStat.extend({
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var utils = __webpack_require__(1);
@@ -9766,11 +9793,11 @@ exports.NUMBERS = function () {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var error = __webpack_require__(0);
-var jStat = __webpack_require__(10);
+var jStat = __webpack_require__(11);
 var text = __webpack_require__(6);
 var utils = __webpack_require__(1);
 var bessel = __webpack_require__(26);
@@ -11334,7 +11361,7 @@ exports.OCT2HEX = function(number, places) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11346,7 +11373,7 @@ var SUPPORTED_FORMULAS = ['ABS', 'ACCRINT', 'ACOS', 'ACOSH', 'ACOT', 'ACOTH', 'A
 exports['default'] = SUPPORTED_FORMULAS;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11481,20 +11508,20 @@ function toLabel(row, column) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 exports.__esModule = true;
-exports.rowLabelToIndex = exports.rowIndexToLabel = exports.columnLabelToIndex = exports.columnIndexToLabel = exports.toLabel = exports.extractLabel = exports.error = exports.Parser = exports.ERROR_VALUE = exports.ERROR_REF = exports.ERROR_NUM = exports.ERROR_NULL = exports.ERROR_NOT_AVAILABLE = exports.ERROR_NAME = exports.ERROR_DIV_ZERO = exports.ERROR = exports.SUPPORTED_FORMULAS = undefined;
+exports.formulajs = exports.rowLabelToIndex = exports.rowIndexToLabel = exports.columnLabelToIndex = exports.columnIndexToLabel = exports.toLabel = exports.extractLabel = exports.error = exports.Parser = exports.ERROR_VALUE = exports.ERROR_REF = exports.ERROR_NUM = exports.ERROR_NULL = exports.ERROR_NOT_AVAILABLE = exports.ERROR_NAME = exports.ERROR_DIV_ZERO = exports.ERROR = exports.SUPPORTED_FORMULAS = undefined;
 
-var _parser = __webpack_require__(16);
+var _parser = __webpack_require__(17);
 
 var _parser2 = _interopRequireDefault(_parser);
 
-var _supportedFormulas = __webpack_require__(13);
+var _supportedFormulas = __webpack_require__(14);
 
 var _supportedFormulas2 = _interopRequireDefault(_supportedFormulas);
 
@@ -11502,7 +11529,13 @@ var _error = __webpack_require__(2);
 
 var _error2 = _interopRequireDefault(_error);
 
-var _cell = __webpack_require__(14);
+var _cell = __webpack_require__(15);
+
+var _formulajs = __webpack_require__(10);
+
+var formulajs = _interopRequireWildcard(_formulajs);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -11523,9 +11556,10 @@ exports.columnIndexToLabel = _cell.columnIndexToLabel;
 exports.columnLabelToIndex = _cell.columnLabelToIndex;
 exports.rowIndexToLabel = _cell.rowIndexToLabel;
 exports.rowLabelToIndex = _cell.rowLabelToIndex;
+exports.formulajs = formulajs;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11533,11 +11567,11 @@ exports.rowLabelToIndex = _cell.rowLabelToIndex;
 
 exports.__esModule = true;
 
-var _tinyEmitter = __webpack_require__(17);
+var _tinyEmitter = __webpack_require__(18);
 
 var _tinyEmitter2 = _interopRequireDefault(_tinyEmitter);
 
-var _evaluateByOperator = __webpack_require__(18);
+var _evaluateByOperator = __webpack_require__(19);
 
 var _evaluateByOperator2 = _interopRequireDefault(_evaluateByOperator);
 
@@ -11551,7 +11585,7 @@ var _error = __webpack_require__(2);
 
 var _error2 = _interopRequireDefault(_error);
 
-var _cell = __webpack_require__(14);
+var _cell = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -11856,7 +11890,7 @@ var Parser = function (_Emitter) {
 exports['default'] = Parser;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 function E () {
@@ -11929,7 +11963,7 @@ module.exports.TinyEmitter = E;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11939,23 +11973,23 @@ exports.__esModule = true;
 exports['default'] = evaluateByOperator;
 exports.registerOperation = registerOperation;
 
-var _add = __webpack_require__(19);
+var _add = __webpack_require__(20);
 
 var _add2 = _interopRequireDefault(_add);
 
-var _ampersand = __webpack_require__(20);
+var _ampersand = __webpack_require__(21);
 
 var _ampersand2 = _interopRequireDefault(_ampersand);
 
-var _divide = __webpack_require__(21);
+var _divide = __webpack_require__(22);
 
 var _divide2 = _interopRequireDefault(_divide);
 
-var _equal = __webpack_require__(22);
+var _equal = __webpack_require__(23);
 
 var _equal2 = _interopRequireDefault(_equal);
 
-var _formulaFunction = __webpack_require__(23);
+var _formulaFunction = __webpack_require__(24);
 
 var _formulaFunction2 = _interopRequireDefault(_formulaFunction);
 
@@ -12051,7 +12085,7 @@ registerOperation(_notEqual2['default'].SYMBOL, _notEqual2['default']);
 registerOperation(_minus2['default'].SYMBOL, _minus2['default']);
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12067,16 +12101,46 @@ var _error = __webpack_require__(2);
 
 var SYMBOL = exports.SYMBOL = '+';
 
-function func(first) {
-	console.log("Inside addition", first);
-	
+function func() {
+  var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+  var result = void 0;
+
   for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     rest[_key - 1] = arguments[_key];
   }
 
-  var result = rest.reduce(function (acc, value) {
-    return acc + (0, _number.toNumber)(value);
-  }, (0, _number.toNumber)(first));
+  if (Array.isArray(rest) && Array.isArray(first)) {
+    result = [];
+    for (var _iterator = rest, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var innerRestArray = _ref;
+
+      for (var index = 0; index < innerRestArray.length; index++) {
+        if (typeof innerRestArray[index][0] === 'boolean' && typeof first[index][0] === 'boolean' && (innerRestArray[index][0] || first[index][0])) {
+          result.push([true]);
+        } else {
+          result.push([false]);
+        }
+      }
+    }
+    return result;
+  }
+
+  result = rest.reduce(function (acc) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    return acc + (0, _number.toNumber)(value === "" || value === "A" ? 0 : value);
+  }, (0, _number.toNumber)(first === "A" || first === "" ? 0 : first));
 
   if (isNaN(result)) {
     throw Error(_error.ERROR_VALUE);
@@ -12088,7 +12152,7 @@ function func(first) {
 func.SYMBOL = SYMBOL;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12111,7 +12175,7 @@ function func() {
 func.SYMBOL = SYMBOL;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12127,14 +12191,17 @@ var _error = __webpack_require__(2);
 
 var SYMBOL = exports.SYMBOL = '/';
 
-function func(first) {
+function func() {
+  var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
   for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     rest[_key - 1] = arguments[_key];
   }
 
-  var result = rest.reduce(function (acc, value) {
-    return acc / (0, _number.toNumber)(value);
-  }, (0, _number.toNumber)(first));
+  var result = rest.reduce(function (acc) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    return acc / (0, _number.toNumber)(value === "" || value === "A" ? 0 : value);
+  }, (0, _number.toNumber)(first === "A" || first === "" ? 0 : first));
 
   if (result === Infinity) {
     throw Error(_error.ERROR_DIV_ZERO);
@@ -12149,7 +12216,7 @@ function func(first) {
 func.SYMBOL = SYMBOL;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12160,14 +12227,21 @@ exports['default'] = func;
 var SYMBOL = exports.SYMBOL = '=';
 
 function func(exp1, exp2) {
-	console.log("Inside equals operation: exp1=",exp1,", exp2=",exp2);
+  if (Array.isArray(exp1)) {
+    var result = exp1.map(function (param1) {
+      return param1.map(function (innerParam) {
+        return innerParam === exp2;
+      });
+    });
+    return result;
+  }
   return exp1 === exp2;
 }
 
 func.SYMBOL = SYMBOL;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12177,11 +12251,11 @@ exports.__esModule = true;
 exports.SYMBOL = undefined;
 exports['default'] = func;
 
-var _formulajs = __webpack_require__(24);
+var _formulajs = __webpack_require__(10);
 
 var formulajs = _interopRequireWildcard(_formulajs);
 
-var _supportedFormulas = __webpack_require__(13);
+var _supportedFormulas = __webpack_require__(14);
 
 var _supportedFormulas2 = _interopRequireDefault(_supportedFormulas);
 
@@ -12238,39 +12312,12 @@ func.isFactory = true;
 func.SYMBOL = SYMBOL;
 
 /***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var categories = [
-  __webpack_require__(25),
-  __webpack_require__(27),
-  __webpack_require__(12),
-  __webpack_require__(28),
-  __webpack_require__(4),
-  __webpack_require__(6),
-  __webpack_require__(9),
-  __webpack_require__(29),
-  __webpack_require__(8),
-  __webpack_require__(30),
-  __webpack_require__(5),
-  __webpack_require__(11)
-];
-
-for (var c in categories) {
-  var category = categories[c];
-  for (var f in category) {
-    exports[f] = exports[f] || category[f];
-  }
-}
-
-
-/***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var mathTrig = __webpack_require__(4);
 var statistical = __webpack_require__(5);
-var engineering = __webpack_require__(12);
+var engineering = __webpack_require__(13);
 var dateTime = __webpack_require__(9);
 
 function set(fn, root) {
@@ -14345,6 +14392,14 @@ exports['default'] = func;
 var SYMBOL = exports.SYMBOL = '>';
 
 function func(exp1, exp2) {
+  if (Array.isArray(exp1)) {
+    var result = exp1.map(function (param1) {
+      return param1.map(function (innerParam) {
+        return innerParam > exp2;
+      });
+    });
+    return result;
+  }
   return exp1 > exp2;
 }
 
@@ -14362,6 +14417,14 @@ exports['default'] = func;
 var SYMBOL = exports.SYMBOL = '>=';
 
 function func(exp1, exp2) {
+  if (Array.isArray(exp1)) {
+    var result = exp1.map(function (param1) {
+      return param1.map(function (innerParam) {
+        return innerParam >= exp2;
+      });
+    });
+    return result;
+  }
   return exp1 >= exp2;
 }
 
@@ -14379,6 +14442,14 @@ exports['default'] = func;
 var SYMBOL = exports.SYMBOL = '<';
 
 function func(exp1, exp2) {
+  if (Array.isArray(exp1)) {
+    var result = exp1.map(function (param1) {
+      return param1.map(function (innerParam) {
+        return innerParam < exp2;
+      });
+    });
+    return result;
+  }
   return exp1 < exp2;
 }
 
@@ -14396,6 +14467,14 @@ exports['default'] = func;
 var SYMBOL = exports.SYMBOL = '<=';
 
 function func(exp1, exp2) {
+  if (Array.isArray(exp1)) {
+    var result = exp1.map(function (param1) {
+      return param1.map(function (innerParam) {
+        return innerParam <= exp2;
+      });
+    });
+    return result;
+  }
   return exp1 <= exp2;
 }
 
@@ -14418,14 +14497,17 @@ var _error = __webpack_require__(2);
 
 var SYMBOL = exports.SYMBOL = '-';
 
-function func(first) {
+function func() {
+  var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
   for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     rest[_key - 1] = arguments[_key];
   }
 
-  var result = rest.reduce(function (acc, value) {
-    return acc - (0, _number.toNumber)(value);
-  }, (0, _number.toNumber)(first));
+  var result = rest.reduce(function (acc) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    return acc - (0, _number.toNumber)(value === "" || value === "A" ? 0 : value);
+  }, (0, _number.toNumber)(first === "A" || first === "" ? 0 : first));
 
   if (isNaN(result)) {
     throw Error(_error.ERROR_VALUE);
@@ -14453,14 +14535,46 @@ var _error = __webpack_require__(2);
 
 var SYMBOL = exports.SYMBOL = '*';
 
-function func(first) {
+function func() {
+  var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+  var result = void 0;
+
   for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     rest[_key - 1] = arguments[_key];
   }
 
-  var result = rest.reduce(function (acc, value) {
-    return acc * (0, _number.toNumber)(value);
-  }, (0, _number.toNumber)(first));
+  if (Array.isArray(rest) && Array.isArray(first)) {
+    result = [];
+    for (var _iterator = rest, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var innerRestArray = _ref;
+
+      for (var index = 0; index < innerRestArray.length; index++) {
+        if (typeof innerRestArray[index][0] === 'boolean' && typeof first[index][0] === 'boolean' && innerRestArray[index][0] && first[index][0]) {
+          result.push([true]);
+        } else {
+          result.push([false]);
+        }
+      }
+    }
+    return result;
+  }
+
+  result = rest.reduce(function (acc) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    return acc * (0, _number.toNumber)(value === "" || value === "A" ? 0 : value);
+  }, (0, _number.toNumber)(first === "A" || first === "" ? 0 : first));
 
   if (isNaN(result)) {
     throw Error(_error.ERROR_VALUE);
@@ -14505,7 +14619,10 @@ var _error = __webpack_require__(2);
 
 var SYMBOL = exports.SYMBOL = '^';
 
-function func(exp1, exp2) {
+function func() {
+  var exp1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var exp2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
   var result = Math.pow((0, _number.toNumber)(exp1), (0, _number.toNumber)(exp2));
 
   if (isNaN(result)) {
@@ -14600,7 +14717,7 @@ var parser = {trace: function trace () { },
 yy: {},
 symbols_: {"error":2,"expressions":3,"expression":4,"EOF":5,"variableSequence":6,"number":7,"STRING":8,"&":9,"=":10,"+":11,"(":12,")":13,"<":14,">":15,"NOT":16,"-":17,"*":18,"/":19,"^":20,"FUNCTION":21,"expseq":22,"cell":23,"ABSOLUTE_CELL":24,"SHEET_REF":25,"RELATIVE_CELL":26,"MIXED_CELL":27,":":28,"ARRAY":29,";":30,",":31,"VARIABLE":32,"DECIMAL":33,"NUMBER":34,"%":35,"ERROR":36,"$accept":0,"$end":1},
 terminals_: {5:"EOF",8:"STRING",9:"&",10:"=",11:"+",12:"(",13:")",14:"<",15:">",16:"NOT",17:"-",18:"*",19:"/",20:"^",21:"FUNCTION",24:"ABSOLUTE_CELL",25:"SHEET_REF",26:"RELATIVE_CELL",27:"MIXED_CELL",28:":",29:"ARRAY",30:";",31:",",32:"VARIABLE",33:"DECIMAL",34:"NUMBER",35:"%",36:"ERROR"},
-productions_: [0,[3,2],[4,1],[4,1],[4,1],[4,3],[4,3],[4,3],[4,3],[4,4],[4,4],[4,4],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,2],[4,2],[4,3],[4,4],[4,1],[4,1],[4,2],[23,1],[23,2],[23,1],[23,2],[23,1],[23,2],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[22,1],[22,1],[22,3],[22,3],[6,1],[6,3],[7,1],[7,3],[7,2],[2,1]],
+productions_: [0,[3,2],[4,1],[4,1],[4,1],[4,3],[4,3],[4,3],[4,3],[4,4],[4,4],[4,4],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,2],[4,2],[4,3],[4,4],[4,1],[4,1],[4,2],[23,1],[23,2],[23,1],[23,2],[23,1],[23,2],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[23,3],[23,4],[22,1],[22,1],[22,3],[22,3],[22,2],[6,1],[6,3],[7,1],[7,3],[7,2],[2,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -14608,96 +14725,115 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression EOF--------------", $$[$0-1]) : '';
       return $$[$0-1];
-
+    
 break;
 case 2:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside variableSequence--------------", $$[$0]) : '';
       this.$ = yy.callVariable($$[$0][0]);
-
+    
 break;
 case 3:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside number--------------", $$[$0]) : '';
       this.$ = yy.toNumber($$[$0]);
-
+    
 break;
 case 4:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside STRING--------------", $$[$0]) : '';
       this.$ = yy.trimEdges($$[$0]);
-
+    
 break;
 case 5:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '&' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('&', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 6:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '=' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('=', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 7:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '+' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('+', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 8:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expression ')'--------------", $$[$0-1]) : '';
       this.$ = $$[$0-1];
-
+    
 break;
 case 9:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '<' '=' expression--------------", $$[$0-3], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('<=', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 10:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '>' '=' expression--------------", $$[$0-3], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('>=', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 11:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '<' '>' expression--------------", $$[$0-3], $$[$0-1]) : '';
       this.$ = yy.evaluateByOperator('<>', [$$[$0-3], $$[$0]]);
-
+    
 break;
 case 12:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression NOT expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('NOT', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 13:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '>' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('>', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 14:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '<' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('<', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 15:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '-' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('-', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 16:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '*' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('*', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 17:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '/' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('/', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 18:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '^' expression--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.evaluateByOperator('^', [$$[$0-2], $$[$0]]);
-
+    
 break;
 case 19:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside '-' expression--------------", $$[$0]) : '';
       var n1 = yy.invertNumber($$[$0]);
 
       this.$ = n1;
@@ -14705,10 +14841,11 @@ case 19:
       if (isNaN(this.$)) {
           this.$ = 0;
       }
-
+    
 break;
 case 20:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside '+' expression--------------", $$[$0]) : '';
       var n1 = yy.toNumber($$[$0]);
 
       this.$ = n1;
@@ -14716,83 +14853,237 @@ case 20:
       if (isNaN(this.$)) {
           this.$ = 0;
       }
-
+    
 break;
 case 21:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside FUNCTION '(' ')'--------------", $$[$0-2]) : '';
       this.$ = yy.callFunction($$[$0-2]);
-
+    
 break;
 case 22:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside FUNCTION '(' expseq ')'--------------", $$[$0-3], $$[$0-1]) : '';
       this.$ = yy.callFunction($$[$0-3], $$[$0-1]);
-
+    
 break;
-case 26: case 28: case 30:
+case 26:
 
+     (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL--------------", $$[$0]) : '';
       this.$ = yy.cellValue($$[$0]);
-
+    
 break;
-case 27: case 29: case 31:
+case 27:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL--------------", $$[$0-1], $$[$0]) : '';
       this.$ = yy.cellValue($$[$0-1] + $$[$0]);
-
+    
 break;
-case 32: case 34: case 36: case 38: case 40: case 42: case 44: case 46: case 48:
+case 28:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL--------------", $$[$0]) : '';
+      this.$ = yy.cellValue($$[$0]);
+    
+break;
+case 29:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL--------------", $$[$0-1], $$[$0]) : '';
+      this.$ = yy.cellValue($$[$0-1] + $$[$0]);
+    
+break;
+case 30:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL--------------", $$[$0]) : '';
+      this.$ = yy.cellValue($$[$0]);
+    
+break;
+case 31:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL--------------", $$[$0-1], $$[$0]) : '';
+      this.$ = yy.cellValue($$[$0-1] + $$[$0]);
+    
+break;
+case 32:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL ':' ABSOLUTE_CELL--------------", $$[$0-2], $$[$0]) : '';
       this.$ = yy.rangeValue($$[$0-2], $$[$0]);
-
+    
 break;
-case 33: case 35: case 37: case 39: case 41: case 43: case 45: case 47: case 49:
+case 33:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' ABSOLUTE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
       this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
-
+    
 break;
-case 50: case 54:
+case 34:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL ':' RELATIVE_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 35:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' RELATIVE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 36:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL ':' MIXED_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 37:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' MIXED_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 38:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' ABSOLUTE_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 39:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' ABSOLUTE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 40:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' RELATIVE_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 41:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' RELATIVE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 42:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' MIXED_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 43:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' MIXED_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 44:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' ABSOLUTE_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 45:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' ABSOLUTE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 46:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' RELATIVE_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 47:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' RELATIVE_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 48:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' MIXED_CELL--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-2], $$[$0]);
+    
+break;
+case 49:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' MIXED_CELL--------------", $$[$0-3], $$[$0-2], $$[$0]) : '';
+      this.$ = yy.rangeValue($$[$0-3] + $$[$0-2], $$[$0-3] + $$[$0]);
+    
+break;
+case 50:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression--------------", $$[$0]) : '';
       this.$ = [$$[$0]];
-
+    
 break;
 case 51:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ARRAY--------------", $$[$0], yytext) : '';
       this.$ = yy.trimEdges(yytext).split(',');
-
+    
 break;
-case 52: case 53:
+case 52:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expseq ';' expression--------------", $$[$0-2], $$[$0]) : '';
       $$[$0-2].push($$[$0]);
       this.$ = $$[$0-2];
+    
+break;
+case 53:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expseq ',' expression--------------", $$[$0-2], $$[$0]) : '';
+      $$[$0-2].push($$[$0]);
+      this.$ = $$[$0-2];
+    
+break;
+case 54:
+
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expseq ',' --------------", $$[$0-1]) : '';
+      $$[$0-1].push('');
+      this.$ = $$[$0-1];
+    
 break;
 case 55:
 
-      this.$ = (Array.isArray($$[$0-2]) ? $$[$0-2] : [$$[$0-2]]);
-      this.$.push($$[$0]);
-
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside VARIABLE--------------", $$[$0]) : '';
+      this.$ = [$$[$0]];
+    
 break;
 case 56:
 
-      this.$ = $$[$0];
-
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside variableSequence DECIMAL VARIABLE--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = (Array.isArray($$[$0-2]) ? $$[$0-2] : [$$[$0-2]]);
+      this.$.push($$[$0]);
+    
 break;
 case 57:
 
-      this.$ = ($$[$0-2] + '.' + $$[$0]) * 1;
-
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside NUMBER--------------", $$[$0]) : '';
+      this.$ = $$[$0];
+    
 break;
 case 58:
 
-      this.$ = $$[$0-1] * 0.01;
-
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside NUMBER DECIMAL NUMBER--------------", $$[$0-2], $$[$0]) : '';
+      this.$ = ($$[$0-2] + '.' + $$[$0]) * 1;
+    
 break;
 case 59:
 
-      this.$ = yy.throwError($$[$0]);
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside number '%'--------------", $$[$0-1]) : '';
+      this.$ = $$[$0-1] * 0.01;
+    
+break;
+case 60:
 
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ERROR--------------", $$[$0]) : '';
+      this.$ = yy.throwError($$[$0]);
+    
 break;
 }
 },
-table: [{2:11,3:1,4:2,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{1:[3]},{5:[1,19],9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl},o($Vm,[2,2],{33:[1,30]}),o($Vm,[2,3],{35:[1,31]}),o($Vm,[2,4]),{2:11,4:32,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:33,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:34,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{12:[1,35]},o($Vm,[2,23]),o($Vm,[2,24],{2:36,36:$Vb}),o($Vn,[2,54]),o($Vo,[2,56],{33:[1,37]}),o($Vm,[2,26],{28:[1,38]}),{24:[1,39],26:[1,40],27:[1,41]},o($Vm,[2,28],{28:[1,42]}),o($Vm,[2,30],{28:[1,43]}),o([5,9,10,11,13,14,15,16,17,18,19,20,30,31,36],[2,59]),{1:[2,1]},{2:11,4:44,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:45,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:46,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:49,6:3,7:4,8:$V0,10:[1,47],11:$V1,12:$V2,15:[1,48],17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:51,6:3,7:4,8:$V0,10:[1,50],11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:52,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:53,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:54,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:55,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:56,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{32:[1,57]},o($Vo,[2,58]),{9:$Vc,10:$Vd,11:$Ve,13:[1,58],14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl},o($Vp,[2,19],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,20],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:61,6:3,7:4,8:$V0,11:$V1,12:$V2,13:[1,59],17:$V3,21:$V4,22:60,23:10,24:$V5,25:$V6,26:$V7,27:$V8,29:[1,62],32:$V9,34:$Va,36:$Vb},o($Vm,[2,25]),{34:[1,63]},{24:[1,64],26:[1,65],27:[1,66]},o($Vm,[2,27],{28:[1,67]}),o($Vm,[2,29],{28:[1,68]}),o($Vm,[2,31],{28:[1,69]}),{24:[1,70],26:[1,71],27:[1,72]},{24:[1,73],26:[1,74],27:[1,75]},o($Vm,[2,5]),o([5,10,13,30,31],[2,6],{9:$Vc,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,7],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:76,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:77,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vq,[2,14],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:78,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vq,[2,13],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o([5,10,13,16,30,31],[2,12],{9:$Vc,11:$Ve,14:$Vf,15:$Vg,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,15],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),o($Vr,[2,16],{9:$Vc,20:$Vl}),o($Vr,[2,17],{9:$Vc,20:$Vl}),o([5,10,11,13,14,15,16,17,18,19,20,30,31],[2,18],{9:$Vc}),o($Vn,[2,55]),o($Vm,[2,8]),o($Vm,[2,21]),{13:[1,79],30:[1,80],31:[1,81]},o($Vs,[2,50],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vs,[2,51]),o($Vo,[2,57]),o($Vm,[2,32]),o($Vm,[2,34]),o($Vm,[2,36]),{24:[1,82],26:[1,83],27:[1,84]},{24:[1,85],26:[1,86],27:[1,87]},{24:[1,88],26:[1,89],27:[1,90]},o($Vm,[2,38]),o($Vm,[2,40]),o($Vm,[2,42]),o($Vm,[2,44]),o($Vm,[2,46]),o($Vm,[2,48]),o($Vq,[2,9],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vq,[2,11],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vq,[2,10],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vm,[2,22]),{2:11,4:91,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:92,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vm,[2,33]),o($Vm,[2,35]),o($Vm,[2,37]),o($Vm,[2,39]),o($Vm,[2,41]),o($Vm,[2,43]),o($Vm,[2,45]),o($Vm,[2,47]),o($Vm,[2,49]),o($Vs,[2,52],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vs,[2,53],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl})],
+table: [{2:11,3:1,4:2,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{1:[3]},{5:[1,19],9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl},o($Vm,[2,2],{33:[1,30]}),o($Vm,[2,3],{35:[1,31]}),o($Vm,[2,4]),{2:11,4:32,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:33,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:34,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{12:[1,35]},o($Vm,[2,23]),o($Vm,[2,24],{2:36,36:$Vb}),o($Vn,[2,55]),o($Vo,[2,57],{33:[1,37]}),o($Vm,[2,26],{28:[1,38]}),{24:[1,39],26:[1,40],27:[1,41]},o($Vm,[2,28],{28:[1,42]}),o($Vm,[2,30],{28:[1,43]}),o([5,9,10,11,13,14,15,16,17,18,19,20,30,31,36],[2,60]),{1:[2,1]},{2:11,4:44,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:45,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:46,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:49,6:3,7:4,8:$V0,10:[1,47],11:$V1,12:$V2,15:[1,48],17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:51,6:3,7:4,8:$V0,10:[1,50],11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:52,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:53,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:54,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:55,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:56,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{32:[1,57]},o($Vo,[2,59]),{9:$Vc,10:$Vd,11:$Ve,13:[1,58],14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl},o($Vp,[2,19],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,20],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:61,6:3,7:4,8:$V0,11:$V1,12:$V2,13:[1,59],17:$V3,21:$V4,22:60,23:10,24:$V5,25:$V6,26:$V7,27:$V8,29:[1,62],32:$V9,34:$Va,36:$Vb},o($Vm,[2,25]),{34:[1,63]},{24:[1,64],26:[1,65],27:[1,66]},o($Vm,[2,27],{28:[1,67]}),o($Vm,[2,29],{28:[1,68]}),o($Vm,[2,31],{28:[1,69]}),{24:[1,70],26:[1,71],27:[1,72]},{24:[1,73],26:[1,74],27:[1,75]},o($Vm,[2,5]),o([5,10,13,30,31],[2,6],{9:$Vc,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,7],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:76,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},{2:11,4:77,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vq,[2,14],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),{2:11,4:78,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vq,[2,13],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o([5,10,13,16,30,31],[2,12],{9:$Vc,11:$Ve,14:$Vf,15:$Vg,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vp,[2,15],{9:$Vc,18:$Vj,19:$Vk,20:$Vl}),o($Vr,[2,16],{9:$Vc,20:$Vl}),o($Vr,[2,17],{9:$Vc,20:$Vl}),o([5,10,11,13,14,15,16,17,18,19,20,30,31],[2,18],{9:$Vc}),o($Vn,[2,56]),o($Vm,[2,8]),o($Vm,[2,21]),{13:[1,79],30:[1,80],31:[1,81]},o($Vs,[2,50],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vs,[2,51]),o($Vo,[2,58]),o($Vm,[2,32]),o($Vm,[2,34]),o($Vm,[2,36]),{24:[1,82],26:[1,83],27:[1,84]},{24:[1,85],26:[1,86],27:[1,87]},{24:[1,88],26:[1,89],27:[1,90]},o($Vm,[2,38]),o($Vm,[2,40]),o($Vm,[2,42]),o($Vm,[2,44]),o($Vm,[2,46]),o($Vm,[2,48]),o($Vq,[2,9],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vq,[2,11],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vq,[2,10],{9:$Vc,11:$Ve,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vm,[2,22]),{2:11,4:91,6:3,7:4,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,23:10,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb},o($Vs,[2,54],{6:3,7:4,23:10,2:11,4:92,8:$V0,11:$V1,12:$V2,17:$V3,21:$V4,24:$V5,25:$V6,26:$V7,27:$V8,32:$V9,34:$Va,36:$Vb}),o($Vm,[2,33]),o($Vm,[2,35]),o($Vm,[2,37]),o($Vm,[2,39]),o($Vm,[2,41]),o($Vm,[2,43]),o($Vm,[2,45]),o($Vm,[2,47]),o($Vm,[2,49]),o($Vs,[2,52],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl}),o($Vs,[2,53],{9:$Vc,10:$Vd,11:$Ve,14:$Vf,15:$Vg,16:$Vh,17:$Vi,18:$Vj,19:$Vk,20:$Vl})],
 defaultActions: {19:[2,1]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
@@ -15448,7 +15739,7 @@ case 37:return 5;
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:"(\\["]|[^"])*")(?!\!)/,/^(?:'(\\[']|[^'])*')(?!\!)/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:[A-Za-z0-9\s!@#$%&\'\"]+!)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[(.*)?\])/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:[#])/,/^(?:$)/],
+rules: [/^(?:\s+)/,/^(?:"(\\["]|[^"])*"(?!!))/,/^(?:'(\\[']|[^'])*'(?!!))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:[A-Za-z0-9\s!@#$%&\'\"]+!)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[(.*)?\])/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:[#])/,/^(?:$)/],
 conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37],"inclusive":true}}
 });
 return lexer;
@@ -15466,8 +15757,18 @@ if (true) {
 exports.parser = grammarParser;
 exports.Parser = grammarParser.Parser;
 exports.parse = function () { return grammarParser.parse.apply(grammarParser, arguments); };
+// exports.main = function commonjsMain (args) {
+//     if (!args[1]) {
+//         console.log('Usage: '+args[0]+' FILE');
+//         process.exit(1);
+//     }
+//     var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
+//     return exports.parser.parse(source);
+// };
+// if (typeof module !== 'undefined' && require.main === module) {
+//   exports.main(process.argv.slice(1));
+// }
 }
-
 
 /***/ }),
 /* 40 */

@@ -3,7 +3,7 @@ import {ERROR_VALUE} from './../../error';
 
 export const SYMBOL = '^';
 
-export default function func(exp1, exp2) {
+export default function func(exp1=0, exp2=0) {
   const result = Math.pow(toNumber(exp1), toNumber(exp2));
 
   if (isNaN(result)) {
