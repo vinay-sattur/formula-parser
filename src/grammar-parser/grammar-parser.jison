@@ -266,7 +266,18 @@ cell
 ;
 
 expseq
-  : expression {
+  : ',' {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ','--------------", $1) : '';
+      $$ = [""];
+    }
+  
+  | ',' expression {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside ',' expression--------------", $1, $2) : '';
+      
+      $$ = ["", $2];
+    }
+  
+  | expression {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression--------------", $1) : '';
       $$ = [$1];
     }
@@ -281,6 +292,9 @@ expseq
     }
   | expseq ',' expression {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside expseq ',' expression--------------", $1, $3) : '';
+      if($1.join("") === "") {
+        $1.push("");
+      }
       $1.push($3);
       $$ = $1;
     }
