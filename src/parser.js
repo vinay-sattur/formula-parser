@@ -161,7 +161,7 @@ class Parser extends Emitter {
       }
     });
 
-    return value === void 0 ? evaluateByOperator(name, params) : value;
+    return value === void 0 ? this.parser.yy.evaluateByOperator(name, params) : value;
   }
 
   /**
@@ -244,6 +244,10 @@ class Parser extends Emitter {
     }
 
     throw Error(ERROR);
+  }
+
+  checkForA(val) {
+    this.parser.yy.checkForA = val;
   }
 }
 

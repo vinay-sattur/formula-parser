@@ -24,5 +24,9 @@ export function toNumber(number) {
  * @returns {Number} Returns inverted number.
  */
 export function invertNumber(number) {
-  return -1 * toNumber(number);
+  if (Array.isArray(number)) {
+    return number.map(num => -1 * toNumber(num));
+  } else {
+    return -1 * toNumber(number);
+  }
 }

@@ -82,7 +82,9 @@
     "webpack": "^3.2.0"
   },
   "dependencies": {
+    "@formulajs/formulajs": "^2.6.9",
     "@handsontable/formulajs": "^2.0.2",
+    "@vinaysattur/formulajs": "file:../vinay-sattur/formulajs",
     "tiny-emitter": "^2.1.0"
   },
   "jest": {

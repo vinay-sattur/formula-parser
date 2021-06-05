@@ -29,7 +29,7 @@ export default function evaluateByOperator(operator, params = []) {
   if (!availableOperators[operator]) {
     throw Error(ERROR_NAME);
   }
-
+  availableOperators.checkForA = this.checkForA;
   return availableOperators[operator](...params);
 }
 

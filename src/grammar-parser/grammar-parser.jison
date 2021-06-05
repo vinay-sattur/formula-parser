@@ -77,6 +77,10 @@ expression
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside STRING--------------", $1) : '';
       $$ = yy.trimEdges($1);
     }
+  | expression '%' {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '%'--------------", $1) : '';
+      $$ = $1 * 0.01;
+    }
   | expression '&' expression {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '&' expression--------------", $1, $3) : '';
       $$ = yy.evaluateByOperator('&', [$1, $3]);
@@ -89,8 +93,8 @@ expression
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '+' expression--------------", $1, $3) : '';
       $$ = yy.evaluateByOperator('+', [$1, $3]);
     }
-  | '(' expression ')' {
-    (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expression ')'--------------", $2) : '';
+  | '(' expseq ')' {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expseq ')'--------------", $2) : '';
       $$ = $2;
     }
   | expression '<' '=' expression {
@@ -161,6 +165,7 @@ expression
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside FUNCTION '(' expseq ')'--------------", $1, $3) : '';
       $$ = yy.callFunction($1, $3);
     }
+  
   | cell
   | error
   | error error
@@ -326,10 +331,7 @@ number
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside NUMBER DECIMAL NUMBER--------------", $1, $3) : '';
       $$ = ($1 + '.' + $3) * 1;
     }
-  | number '%' {
-    (typeof window === 'object' && window.logParse) ? console.log("-------Inside number '%'--------------", $1) : '';
-      $$ = $1 * 0.01;
-    }
+  
 ;
 
 error
