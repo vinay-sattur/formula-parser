@@ -1530,6 +1530,8 @@ exports.SUM = function () {
       var parsed = parseFloat(value);
 
       !isNaN(parsed) && (result += parsed);
+    } else if (typeof value === 'boolean' && value === true) {
+      result++;
     } else if (Array.isArray(value)) {
       result += exports.SUM.apply(null, value);
     }
@@ -14986,7 +14988,11 @@ break;
 case 9:
 
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expseq ')'--------------", $$[$0-1]) : '';
-      this.$ = $$[$0-1];
+      if (Array.isArray($$[$0-1]) && $$[$0-1].length === 1) {
+        this.$ = $$[$0-1][0];
+      } else {
+        this.$ = $$[$0-1];
+      }
     
 break;
 case 10:

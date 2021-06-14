@@ -95,7 +95,11 @@ expression
     }
   | '(' expseq ')' {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expseq ')'--------------", $2) : '';
-      $$ = $2;
+      if (Array.isArray($2) && $2.length === 1) {
+        $$ = $2[0];
+      } else {
+        $$ = $2;
+      }
     }
   | expression '<' '=' expression {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside expression '<' '=' expression--------------", $1, $4) : '';

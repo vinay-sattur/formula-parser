@@ -134,7 +134,11 @@ break;
 case 9:
 
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside '(' expseq ')'--------------", $$[$0-1]) : '';
-      this.$ = $$[$0-1];
+      if (Array.isArray($$[$0-1]) && $$[$0-1].length === 1) {
+        this.$ = $$[$0-1][0];
+      } else {
+        this.$ = $$[$0-1];
+      }
     
 break;
 case 10:
