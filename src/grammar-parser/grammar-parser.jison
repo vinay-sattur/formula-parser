@@ -148,7 +148,7 @@ expression
 
       $$ = n1;
 
-      if (isNaN($$)) {
+      if (!Array.isArray($$) && isNaN($$)) {
           $$ = 0;
       }
     }

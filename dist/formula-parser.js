@@ -543,11 +543,15 @@ function toNumber(number) {
 function invertNumber(number) {
   if (Array.isArray(number)) {
     return number.map(function (num) {
+      if (Array.isArray(num)) {
+        return num.map(function (numOfnum) {
+          return -1 * toNumber(numOfnum);
+        });
+      }
       return -1 * toNumber(num);
     });
-  } else {
-    return -1 * toNumber(number);
   }
+  return -1 * toNumber(number);
 }
 
 /***/ }),
@@ -15070,7 +15074,7 @@ case 20:
 
       this.$ = n1;
 
-      if (isNaN(this.$)) {
+      if (!Array.isArray(this.$) && isNaN(this.$)) {
           this.$ = 0;
       }
     

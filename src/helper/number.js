@@ -25,8 +25,12 @@ export function toNumber(number) {
  */
 export function invertNumber(number) {
   if (Array.isArray(number)) {
-    return number.map(num => -1 * toNumber(num));
-  } else {
-    return -1 * toNumber(number);
+    return number.map((num) => {
+      if (Array.isArray(num)) {
+        return num.map((numOfnum) => { return -1 * toNumber(numOfnum); });
+      }
+      return -1 * toNumber(num);
+    });
   }
+  return -1 * toNumber(number);
 }

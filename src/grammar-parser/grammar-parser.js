@@ -208,7 +208,7 @@ case 20:
 
       this.$ = n1;
 
-      if (isNaN(this.$)) {
+      if (!Array.isArray(this.$) && isNaN(this.$)) {
           this.$ = 0;
       }
     
