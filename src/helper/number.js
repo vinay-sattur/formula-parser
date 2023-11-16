@@ -11,7 +11,11 @@ export function toNumber(number) {
     result = number;
 
   } else if (typeof number === 'string') {
-    result = number.indexOf('.') > -1 ? parseFloat(number) : parseInt(number, 10);
+    if(number === '') {
+      result = 0;
+    } else {
+      result = number.indexOf('.') > -1 ? parseFloat(number) : parseInt(number, 10);
+    }
   }
 
   return result;

@@ -73,7 +73,7 @@ export function columnIndexToLabel(column) {
   return result.toUpperCase();
 }
 
-const LABEL_EXTRACT_REGEXP = /^(([A-Za-z0-9\s!@#$%&\'\"()]+)!)?([$])?([A-Za-z]+)([$])?([0-9]+)$/;
+const LABEL_EXTRACT_REGEXP = /^(([A-Za-z0-9\s!@#$%&.;,{}\~\`\^\'\"()]+)!)?([$])?([A-Za-z]+)([$])?([0-9]+)$/;
 
 /**
  * Extract cell coordinates.

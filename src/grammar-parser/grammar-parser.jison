@@ -7,8 +7,8 @@
 "'"('\\'[']|[^'])*"'"(?!\!)                                                                     {return 'STRING';}
 [A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(])                                                              {return 'FUNCTION';}
 '#'[A-Z0-9\/]+('!'|'?')?                                                                        {return 'ERROR';}
-"'"[A-Za-z0-9\s!@#$%&\'\()"]+"'"'!'                                                             {return 'SHEET_REF';}
-[A-Za-z0-9\s!@#$%&\'\"]+'!'                                                                     {return 'SHEET_REF';}
+"'"[A-Za-z0-9\s!@#$%&.;,{}\~\`\^\'\()"]+"'"'!'                                                          {return 'SHEET_REF';}
+[A-Za-z0-9\s!@#$%&.;,{}\~\`\^\'\"]+'!'                                                                  {return 'SHEET_REF';}
 '$'[A-Za-z]+'$'[0-9]+                                                                           {return 'ABSOLUTE_CELL';}
 '$'[A-Za-z]+[0-9]+                                                                              {return 'MIXED_CELL';}
 [A-Za-z]+'$'[0-9]+                                                                              {return 'MIXED_CELL';}
