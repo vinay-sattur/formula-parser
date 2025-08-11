@@ -3,12 +3,12 @@
 %lex
 %%
 \s+                                                                                             {/* skip whitespace */}
+"'"(([^'])|("''"))+"'!"                                                                     {return 'SHEET_REF';}
 '"'("\\"["]|[^"])*'"'(?!\!)                                                                     {return 'STRING';}
 "'"('\\'[']|[^'])*"'"(?!\!)                                                                     {return 'STRING';}
 [A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(])                                                              {return 'FUNCTION';}
 '#'[A-Z0-9\/]+('!'|'?')?                                                                        {return 'ERROR';}
-"'"[A-Za-z0-9\s!@#$%&.;,{}\~\`\^\'\()"]+"'"'!'                                                          {return 'SHEET_REF';}
-[A-Za-z0-9\s!@#$%&.;,{}\~\`\^\'\"]+'!'                                                                  {return 'SHEET_REF';}
+[A-Za-z0-9._]+'!'                                                                               {return 'SHEET_REF';}
 '$'[A-Za-z]+'$'[0-9]+                                                                           {return 'ABSOLUTE_CELL';}
 '$'[A-Za-z]+[0-9]+                                                                              {return 'MIXED_CELL';}
 [A-Za-z]+'$'[0-9]+                                                                              {return 'MIXED_CELL';}
@@ -74,6 +74,7 @@ expression
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside number--------------", $1) : '';
       $$ = yy.toNumber($1);
     }
+  | cell
   | STRING {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside STRING--------------", $1) : '';
       $$ = yy.trimEdges($1);
@@ -170,8 +171,6 @@ expression
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside FUNCTION '(' expseq ')'--------------", $1, $3) : '';
       $$ = yy.callFunction($1, $3);
     }
-  
-  | cell
   | error
   | error error
 ;
@@ -209,6 +208,10 @@ cell
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' ABSOLUTE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
     }
+  | SHEET_REF ABSOLUTE_CELL ':' SHEET_REF ABSOLUTE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' SHEET_REF ABSOLUTE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
+    }
   | ABSOLUTE_CELL ':' RELATIVE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL ':' RELATIVE_CELL--------------", $1, $3) : '';
       $$ = yy.rangeValue($1, $3);
@@ -216,6 +219,10 @@ cell
   | SHEET_REF ABSOLUTE_CELL ':' RELATIVE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' RELATIVE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
+    }
+  | SHEET_REF ABSOLUTE_CELL ':' SHEET_REF RELATIVE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' SHEET_REF RELATIVE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
     }
   | ABSOLUTE_CELL ':' MIXED_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside ABSOLUTE_CELL ':' MIXED_CELL--------------", $1, $3) : '';
@@ -225,6 +232,10 @@ cell
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' MIXED_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
     }
+  | SHEET_REF ABSOLUTE_CELL ':' SHEET_REF MIXED_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF ABSOLUTE_CELL ':' SHEET_REF MIXED_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
+    }
   | RELATIVE_CELL ':' ABSOLUTE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' ABSOLUTE_CELL--------------", $1, $3) : '';
       $$ = yy.rangeValue($1, $3);
@@ -232,6 +243,10 @@ cell
   | SHEET_REF RELATIVE_CELL ':' ABSOLUTE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' ABSOLUTE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
+    }
+  | SHEET_REF RELATIVE_CELL ':' SHEET_REF ABSOLUTE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' SHEET_REF ABSOLUTE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
     }
   | RELATIVE_CELL ':' RELATIVE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' RELATIVE_CELL--------------", $1, $3) : '';
@@ -241,6 +256,10 @@ cell
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' RELATIVE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
     }
+  | SHEET_REF RELATIVE_CELL ':' SHEET_REF RELATIVE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' SHEET_REF RELATIVE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
+    }
   | RELATIVE_CELL ':' MIXED_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside RELATIVE_CELL ':' MIXED_CELL--------------", $1, $3) : '';
       $$ = yy.rangeValue($1, $3);
@@ -248,6 +267,10 @@ cell
   | SHEET_REF RELATIVE_CELL ':' MIXED_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' MIXED_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
+    }
+  | SHEET_REF RELATIVE_CELL ':' SHEET_REF MIXED_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF RELATIVE_CELL ':' SHEET_REF MIXED_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
     }
   | MIXED_CELL ':' ABSOLUTE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' ABSOLUTE_CELL--------------", $1, $3) : '';
@@ -257,6 +280,10 @@ cell
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' ABSOLUTE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
     }
+  | SHEET_REF MIXED_CELL ':' SHEET_REF ABSOLUTE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' SHEET_REF ABSOLUTE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
+    }
   | MIXED_CELL ':' RELATIVE_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' RELATIVE_CELL--------------", $1, $3) : '';
       $$ = yy.rangeValue($1, $3);
@@ -265,6 +292,10 @@ cell
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' RELATIVE_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
     }
+  | SHEET_REF MIXED_CELL ':' SHEET_REF RELATIVE_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' SHEET_REF RELATIVE_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
+    }
   | MIXED_CELL ':' MIXED_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside MIXED_CELL ':' MIXED_CELL--------------", $1, $3) : '';
       $$ = yy.rangeValue($1, $3);
@@ -272,6 +303,10 @@ cell
   | SHEET_REF MIXED_CELL ':' MIXED_CELL {
     (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' MIXED_CELL--------------", $1, $2, $4) : '';
       $$ = yy.rangeValue($1 + $2, $1 + $4);
+    }
+  | SHEET_REF MIXED_CELL ':' SHEET_REF MIXED_CELL {
+    (typeof window === 'object' && window.logParse) ? console.log("-------Inside SHEET_REF MIXED_CELL ':' SHEET_REF MIXED_CELL--------------", $1, $2, $4, $5) : '';
+      $$ = yy.rangeValue($1 + $2, $4 + $5);
     }
 ;
 
