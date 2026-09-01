@@ -3377,7 +3377,7 @@ exports.T.DIST = function (x, df, tails) {
     return error.num;
   }
 
-  return tails === 1 ? exports.T.DIST.RT(x, df) : exports.T.DIST['2T'](x, df);
+  return tails === 1 ? 1 - exports.T.DIST.RT(x, df) : exports.T.DIST['2T'](x, df);
 };
 
 exports.T.DIST['2T'] = function (x, df) {
@@ -3393,7 +3393,9 @@ exports.T.DIST['2T'] = function (x, df) {
     return error.value;
   }
 
-  return jStat.studentt.pdf(Math.abs(x), df);
+  const cdf = jStat.studentt.cdf(Math.abs(x), df);
+  const pValue = 2 * (1 - cdf);
+  return pValue;
 };
 
 exports.T.DIST.RT = function (x, df) {
@@ -3408,11 +3410,11 @@ exports.T.DIST.RT = function (x, df) {
   if (typeof x !== 'number' || typeof df !== 'number') {
     return error.value;
   }
-  if (x < 0) {
-    return 1 - jStat.studentt.cdf(Math.abs(x), df);
-  } else {
-    return jStat.studentt.cdf(x, df);
-  }
+  // if (x < 0) {
+  return 1 - jStat.studentt.cdf(Math.abs(x), df);
+  // } else {
+  //   return jStat.studentt.cdf(x , df);
+  // }
 };
 
 exports.T.INV = function (probability, df) {
@@ -3436,35 +3438,68 @@ exports.T.INV['2T'] = function (probability, df) {
   return Math.abs(jStat.studentt.inv(probability / 2, df));
 };
 
-// The algorithm can be found here:
-// http://www.chem.uoa.gr/applets/AppletTtest/Appl_Ttest2.html
-exports.T.TEST = function (data_x, data_y) {
-  data_x = utils.parseNumberArray(utils.flatten(data_x));
-  data_y = utils.parseNumberArray(utils.flatten(data_y));
-  if (utils.anyIsError(data_x, data_y)) {
-    return error.value;
+exports.T.TEST = function (data_x, data_y, tails = 2, type = 3) {
+  data_x = faltArr(data_x);
+  data_y = faltArr(data_y);
+  const meanX = findMean(data_x);
+  const meanY = findMean(data_y);
+  const varianceX = variance(data_x, meanX);
+  const varianceY = variance(data_y, meanY);
+
+  const nA = data_x.length;
+  const nB = data_y.length;
+  const se = standardError(type, data_x, data_y, varianceX, varianceY, nA, nB);
+  const tStatistic = (meanX - meanY) / se;
+  let degreesOfFreedom;
+  if (type === 1) {
+    degreesOfFreedom = nA - 1;
+  } else if (type === 2) {
+    degreesOfFreedom = nA + nB - 2;
+  } else if (type === 3) {
+    const numerator = Math.pow(varianceX / nA + varianceY / nB, 2);
+    const denominator = Math.pow(varianceX / nA, 2) / (nA - 1) + Math.pow(varianceY / nB, 2) / (nB - 1);
+    degreesOfFreedom = numerator / denominator;
   }
-
-  var mean_x = jStat.mean(data_x);
-  var mean_y = jStat.mean(data_y);
-  var s_x = 0;
-  var s_y = 0;
-  var i;
-
-  for (i = 0; i < data_x.length; i++) {
-    s_x += Math.pow(data_x[i] - mean_x, 2);
-  }
-  for (i = 0; i < data_y.length; i++) {
-    s_y += Math.pow(data_y[i] - mean_y, 2);
-  }
-
-  s_x = s_x / (data_x.length - 1);
-  s_y = s_y / (data_y.length - 1);
-
-  var t = Math.abs(mean_x - mean_y) / Math.sqrt(s_x / data_x.length + s_y / data_y.length);
-
-  return exports.T.DIST['2T'](t, data_x.length + data_y.length - 2);
+  const value = tails * (1 - jStat.studentt.cdf(Math.abs(tStatistic), degreesOfFreedom));
+  return +value.toString().slice(0, value.toString().indexOf(".") + 9);
 };
+function faltArr(arr) {
+  let cArr = [];
+  let arrLength = arr.length;
+  for (let i = 0; i < arrLength; i++) {
+    cArr.push(arr[i][0]);
+  }
+  return cArr;
+}
+function findMean(arr) {
+  let sum = 0;
+  let arrLength = arr.length;
+  for (let i = 0; i < arrLength; i++) {
+    sum = sum + arr[i];
+  }
+  return sum / arrLength;
+}
+function standardError(type, data_x, data_y, varianceX, varianceY, nA, nB) {
+  if (type === 1) {
+    const differences = data_x.map((val, idx) => val - data_y[idx]);
+    const diffMean = jStat.mean(differences);
+    const diffVariance = variance(differences, diffMean);
+    return Math.sqrt(diffVariance / nA);
+  } else if (type === 2) {
+    const pooledVariance = ((nA - 1) * varianceX + (nB - 1) * varianceY) / (nA + nB - 2);
+    return Math.sqrt(pooledVariance * (1 / nA + 1 / nB));
+  } else if (type === 3) {
+    return Math.sqrt(varianceX / nA + varianceY / nB);
+  }
+}
+function variance(arr, meanValue) {
+  let squaredDifferencesSum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    const difference = arr[i] - meanValue;
+    squaredDifferencesSum += difference * difference;
+  }
+  return squaredDifferencesSum / (arr.length - 1);
+}
 
 exports.TREND = function (data_y, data_x, new_data_x) {
   data_y = utils.parseNumberArray(utils.flatten(data_y));
@@ -3697,18 +3732,28 @@ exports.FIXED = function () {
 };
 
 exports.HTML2TEXT = function (value) {
-  var result = '';
+  function stripTags(str) {
+    if (typeof str !== 'string') return str;
+    let prev;
+    do {
+      prev = str;
+      str = str.replace(/<(?:.|\n)*?>/gm, '');
+    } while (str !== prev);
+    return str;
+  }
+
+  let result = '';
 
   if (value) {
-    if (value instanceof Array) {
+    if (Array.isArray(value)) {
       value.forEach(function (line) {
         if (result !== '') {
           result += '\n';
         }
-        result += line.replace(/<(?:.|\n)*?>/gm, '');
+        result += stripTags(line);
       });
     } else {
-      result = value.replace(/<(?:.|\n)*?>/gm, '');
+      result = stripTags(value);
     }
   }
 
@@ -4278,7 +4323,7 @@ exports.DATE = function (year, month, day) {
   } else if (year < 0 || month < 0 || day < 0) {
     result = error.num;
   } else {
-    result = new Date(year, month - 1, day);
+    result = serial(new Date(year, month - 1, day));
   }
 
   return result;
@@ -4640,9 +4685,9 @@ exports.TIMEVALUE = function (time_text) {
   return (3600 * time_text.getHours() + 60 * time_text.getMinutes() + time_text.getSeconds()) / 86400;
 };
 
-exports.TODAY = function () {
-  return startOfDay(new Date());
-};
+// exports.TODAY = function () {
+//   return startOfDay(new Date());
+// };
 
 exports.WEEKDAY = function (serial_number, return_type) {
   serial_number = utils.parseDate(serial_number);
@@ -12273,6 +12318,11 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+      return exp1 === exp2;
+    }
     exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
     exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
     return exp1 === exp2;
@@ -14007,7 +14057,7 @@ exports.PV = function (rate, periods, payment, future, type) {
 };
 
 exports.RATE = function (periods, payment, present, future, type, guess) {
-  guess = guess === undefined ? 0.01 : guess;
+  guess = guess === undefined ? 0.1 : guess;
   future = future === undefined ? 0 : future;
   type = type === undefined ? 0 : type;
 
@@ -14489,8 +14539,13 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
-    exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
-    exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+    } else {
+      exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
+      exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    }
     return exp1 > exp2;
   }
 }
@@ -14537,6 +14592,11 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+      return exp1 >= exp2;
+    }
     exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
     exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
     return exp1 >= exp2;
@@ -14585,8 +14645,13 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
-    exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
-    exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+    } else {
+      exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
+      exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    }
     return exp1 < exp2;
   }
 }
@@ -14633,8 +14698,13 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
-    exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
-    exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+    } else {
+      exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
+      exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
+    }
     return exp1 <= exp2;
   }
 }
@@ -14799,6 +14869,11 @@ function operatorHandler(exp1, exp2) {
   if (exp1 === undefined || exp2 === undefined) {
     return '#N/A';
   } else {
+    if (!isNaN(exp1) && !isNaN(exp2)) {
+      exp1 = parseInt(exp1);
+      exp2 = parseInt(exp2);
+      return exp1 !== exp2;
+    }
     exp1 = typeof exp1 === 'boolean' ? exp1.toString() : exp1.toString().toUpperCase();
     exp2 = typeof exp2 === 'boolean' ? exp2.toString() : exp2.toString().toUpperCase();
     return exp1 !== exp2;

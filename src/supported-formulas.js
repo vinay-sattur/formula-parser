@@ -354,6 +354,7 @@ const SUPPORTED_FORMULAS = [
   'T.DIST.RT',
   'T.INV',
   'T.INV.2T',
+  'T.TEST',
   'TAN',
   'TANH',
   'TBILLEQ',
